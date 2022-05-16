@@ -1,9 +1,3 @@
-# js-kata-starter
+# coffee-machine
 
-Starter project for kata (Node, TypeScript, Jest)
-
-## Getting started
-
-- **Fork**, then clone the repository
-- Install dependencies
-- Start developing (`npm test`)
+http://simcap.github.io/coffeemachine/index.html
