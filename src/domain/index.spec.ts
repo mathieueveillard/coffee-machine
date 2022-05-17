@@ -15,6 +15,7 @@ describe("Test of serveDrink()", function () {
     };
     const order: DrinkOrder = {
       drink: "TEA",
+      heat: "HOT",
       numberOfSugars: 0,
     };
     const change: Money = {
@@ -28,6 +29,7 @@ describe("Test of serveDrink()", function () {
     // THEN
     const expected: EnhancedDrinkOrder = {
       drink: "TEA",
+      heat: "HOT",
       numberOfSugars: 0,
       stick: "NO_STICK",
     };
@@ -45,6 +47,7 @@ describe("Test of serveDrink()", function () {
     };
     const order: DrinkOrder = {
       drink: "TEA",
+      heat: "HOT",
       numberOfSugars: 0,
     };
     const change: Money = {
@@ -71,6 +74,7 @@ describe("Test of serveDrink()", function () {
     };
     const order: DrinkOrder = {
       drink: "TEA",
+      heat: "HOT",
       numberOfSugars: 0,
     };
     const change: Money = {
@@ -84,6 +88,7 @@ describe("Test of serveDrink()", function () {
     // THEN
     const expected: EnhancedDrinkOrder = {
       drink: "TEA",
+      heat: "HOT",
       numberOfSugars: 0,
       stick: "NO_STICK",
     };

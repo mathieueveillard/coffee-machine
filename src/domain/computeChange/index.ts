@@ -22,6 +22,10 @@ export const PRICES: Prices = {
     value: 0.5,
     currency: "EUR",
   },
+  ORANGE_JUICE: {
+    value: 0.6,
+    currency: "EUR",
+  },
 };
 
 const computeChange =

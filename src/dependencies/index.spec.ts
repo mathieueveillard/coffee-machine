@@ -10,6 +10,7 @@ describe("Test of ACL()", function () {
     // GIVEN
     const order: EnhancedDrinkOrder = {
       drink: "TEA",
+      heat: "HOT",
       numberOfSugars: 0,
       stick: "NO_STICK",
     };
@@ -26,6 +27,7 @@ describe("Test of ACL()", function () {
     // GIVEN
     const order: EnhancedDrinkOrder = {
       drink: "COFFEE",
+      heat: "HOT",
       numberOfSugars: 0,
       stick: "NO_STICK",
     };
@@ -42,6 +44,7 @@ describe("Test of ACL()", function () {
     // GIVEN
     const order: EnhancedDrinkOrder = {
       drink: "CHOCOLATE",
+      heat: "HOT",
       numberOfSugars: 0,
       stick: "NO_STICK",
     };
@@ -54,10 +57,28 @@ describe("Test of ACL()", function () {
     expect(actual).toEqual(expected);
   });
 
+  test("Orange juice", function () {
+    // GIVEN
+    const order: EnhancedDrinkOrder = {
+      drink: "ORANGE_JUICE",
+      heat: "COLD",
+      numberOfSugars: 0,
+      stick: "NO_STICK",
+    };
+
+    // WHEN
+    const actual = ACL(success(order));
+
+    // THEN
+    const expected: string = "O::";
+    expect(actual).toEqual(expected);
+  });
+
   test("With one sugar (and stick)", function () {
     // GIVEN
     const order: EnhancedDrinkOrder = {
       drink: "TEA",
+      heat: "HOT",
       numberOfSugars: 1,
       stick: "WITH_STICK",
     };
@@ -74,6 +95,7 @@ describe("Test of ACL()", function () {
     // GIVEN
     const order: EnhancedDrinkOrder = {
       drink: "TEA",
+      heat: "HOT",
       numberOfSugars: 2,
       stick: "WITH_STICK",
     };
@@ -93,6 +115,23 @@ describe("Test of ACL()", function () {
 
     // THEN
     const expected: string = "M:Not enough money";
+    expect(actual).toEqual(expected);
+  });
+
+  test("Extra hot tea", function () {
+    // GIVEN
+    const order: EnhancedDrinkOrder = {
+      drink: "TEA",
+      heat: "EXTRA_HOT",
+      numberOfSugars: 0,
+      stick: "NO_STICK",
+    };
+
+    // WHEN
+    const actual = ACL(success(order));
+
+    // THEN
+    const expected: string = "Th::";
     expect(actual).toEqual(expected);
   });
 });
