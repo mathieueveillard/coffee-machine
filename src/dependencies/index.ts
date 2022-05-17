@@ -1,4 +1,5 @@
-import { Drink, DrinkOrder, EnhancedDrinkOrder, NumberOfSugars, Stick } from "../domain";
+import { Drink, NumberOfSugars, Stick, EnhancedDrinkOrder } from "../domain/enhanceDrinkOrder";
+import { isSuccess, Maybe } from "../util/Maybe";
 
 const drinkMapping: Record<Drink, string> = {
   TEA: "T",
@@ -13,10 +14,16 @@ const sugarMapping: Record<NumberOfSugars, string> = {
 };
 
 const stickMapping: Record<Stick, string> = {
-  WITHOUT_STICK: "",
+  NO_STICK: "",
   WITH_STICK: "0",
 };
 
-export const ACL = ({ drink, numberOfSugars, stick }: EnhancedDrinkOrder): string => {
-  return `${drinkMapping[drink]}:${sugarMapping[numberOfSugars]}:${stickMapping[stick]}`;
+const messagePrefix = "M";
+
+export const ACL = (order: Maybe<EnhancedDrinkOrder>): string => {
+  if (isSuccess(order)) {
+    const { drink, numberOfSugars, stick } = order.result;
+    return `${drinkMapping[drink]}:${sugarMapping[numberOfSugars]}:${stickMapping[stick]}`;
+  }
+  return `${messagePrefix}:${order.error}`;
 };

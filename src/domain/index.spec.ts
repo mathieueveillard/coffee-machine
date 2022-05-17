@@ -1,63 +1,92 @@
-// @ts-ignore see https://github.com/jest-community/jest-extended#setup
-import * as matchers from "jest-extended";
-import { DrinkOrder, EnhancedDrinkOrder, enhanceDrinkOrder } from ".";
-expect.extend(matchers);
+import serveDrink from ".";
+import { Error, Success } from "../util/Maybe";
+import { Money, Prices, PRICES } from "./computeChange";
+import { DrinkOrder, EnhancedDrinkOrder } from "./enhanceDrinkOrder";
 
-describe("Test of enhanceDrinkOrder()", function () {
-  test("It should forward the drink order with no stick when there is no sugar", function () {
+describe("Test of serveDrink()", function () {
+  test("It should enhance the drink order if there is enough change", function () {
     // GIVEN
+    const prices: Prices = {
+      ...PRICES,
+      TEA: {
+        value: 0.4,
+        currency: "EUR",
+      },
+    };
     const order: DrinkOrder = {
       drink: "TEA",
       numberOfSugars: 0,
     };
+    const change: Money = {
+      value: 1,
+      currency: "EUR",
+    };
 
     // WHEN
-    const actual = enhanceDrinkOrder(order);
+    const actual = serveDrink(prices)(order)(change);
 
     // THEN
     const expected: EnhancedDrinkOrder = {
       drink: "TEA",
       numberOfSugars: 0,
-      stick: "WITHOUT_STICK",
+      stick: "NO_STICK",
     };
-    expect(actual).toEqual(expected);
+    expect((actual as Success<EnhancedDrinkOrder>).result).toEqual(expected);
   });
 
-  test("It should forward the drink order with a stick when there is one sugar or more", function () {
+  test("It should return an error if there is not enough change", function () {
     // GIVEN
+    const prices: Prices = {
+      ...PRICES,
+      TEA: {
+        value: 0.4,
+        currency: "EUR",
+      },
+    };
     const order: DrinkOrder = {
       drink: "TEA",
-      numberOfSugars: 1,
+      numberOfSugars: 0,
+    };
+    const change: Money = {
+      value: 0.2,
+      currency: "EUR",
     };
 
     // WHEN
-    const actual = enhanceDrinkOrder(order);
+    const actual = serveDrink(prices)(order)(change);
+
+    // THEN
+    const expected: string = "Please insert 0.2 EUR more";
+    expect((actual as Error<EnhancedDrinkOrder>).error).toEqual(expected);
+  });
+
+  test("Edge case", function () {
+    // GIVEN
+    const prices: Prices = {
+      ...PRICES,
+      TEA: {
+        value: 0.4,
+        currency: "EUR",
+      },
+    };
+    const order: DrinkOrder = {
+      drink: "TEA",
+      numberOfSugars: 0,
+    };
+    const change: Money = {
+      value: 0.4,
+      currency: "EUR",
+    };
+
+    // WHEN
+    const actual = serveDrink(prices)(order)(change);
 
     // THEN
     const expected: EnhancedDrinkOrder = {
       drink: "TEA",
-      numberOfSugars: 1,
-      stick: "WITH_STICK",
+      numberOfSugars: 0,
+      stick: "NO_STICK",
     };
-    expect(actual).toEqual(expected);
-  });
-
-  test("It should forward the drink order with a stick when there is one sugar or more", function () {
-    // GIVEN
-    const order: DrinkOrder = {
-      drink: "TEA",
-      numberOfSugars: 2,
-    };
-
-    // WHEN
-    const actual = enhanceDrinkOrder(order);
-
-    // THEN
-    const expected: EnhancedDrinkOrder = {
-      drink: "TEA",
-      numberOfSugars: 2,
-      stick: "WITH_STICK",
-    };
-    expect(actual).toEqual(expected);
+    expect((actual as Success<EnhancedDrinkOrder>).result).toEqual(expected);
   });
 });
