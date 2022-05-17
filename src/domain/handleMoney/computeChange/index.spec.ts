@@ -1,5 +1,5 @@
 import computeChange, { Money, PRICES, Prices } from ".";
-import { DrinkOrder } from "../enhanceDrinkOrder";
+import { DrinkOrder } from "../../enhanceDrinkOrder";
 
 describe("Test of computeChange()", function () {
   test("It should compute money - price (Tea)", function () {

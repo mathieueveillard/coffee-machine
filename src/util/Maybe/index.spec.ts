@@ -15,7 +15,7 @@ describe("Maybe", function () {
     };
 
     // WHEN
-    const actual = success<Fraction>({ numerator: 1, denominator: 2 }).pipe(evaluate);
+    const actual = success<Fraction>({ numerator: 1, denominator: 2 }).bind(evaluate);
 
     // THEN
     expect(actual.type).toEqual("SUCCESS");
@@ -36,7 +36,7 @@ describe("Maybe", function () {
     };
 
     // WHEN
-    const actual = success<Fraction>({ numerator: 1, denominator: 0 }).pipe(evaluate);
+    const actual = success<Fraction>({ numerator: 1, denominator: 0 }).bind(evaluate);
 
     // THEN
     expect(actual.type).toEqual("ERROR");
@@ -57,7 +57,7 @@ describe("Maybe", function () {
     };
 
     // WHEN
-    const actual = error("Error").pipe(evaluate);
+    const actual = error("Error").bind(evaluate);
 
     // THEN
     expect(actual.type).toEqual("ERROR");

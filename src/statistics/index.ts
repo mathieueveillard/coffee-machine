@@ -1,5 +1,6 @@
-import { Money, Prices } from "../domain/computeChange";
+import { Money, Prices } from "../domain/handleMoney/computeChange";
 import { Drink, DrinkOrder, EnhancedDrinkOrder } from "../domain/enhanceDrinkOrder";
+import { Dependencies } from "../domain/handleShortages";
 import { isSuccess, Maybe } from "../util/Maybe";
 
 type DrinkStatistics = Record<Drink, number>;
@@ -43,13 +44,15 @@ const earningsStatisticsReducer =
     };
   };
 
-type ServeDrinkFunction = (prices: Prices) => (order: DrinkOrder) => (money: Money) => Maybe<EnhancedDrinkOrder>;
+type ServeDrinkFunction = (
+  dependencies: Dependencies
+) => (prices: Prices) => (order: DrinkOrder) => (money: Money) => Promise<Maybe<EnhancedDrinkOrder>>;
 
 const withStatistics =
   (state: Statistics) =>
   (fn: ServeDrinkFunction): ServeDrinkFunction => {
-    return (prices: Prices) => (order: DrinkOrder) => (money: Money) => {
-      const result = fn(prices)(order)(money);
+    return (dependencies) => (prices) => (order) => async (money) => {
+      const result = await fn(dependencies)(prices)(order)(money);
       if (isSuccess(result)) {
         const { drink } = order;
         state.drinks = drinkStatisticsReducer(state.drinks)(drink);

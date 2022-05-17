@@ -1,6 +1,6 @@
 // @ts-ignore see https://github.com/jest-community/jest-extended#setup
 import * as matchers from "jest-extended";
-import { ACL } from ".";
+import ACL from ".";
 import { EnhancedDrinkOrder } from "../domain/enhanceDrinkOrder";
 import { error, success } from "../util/Maybe";
 expect.extend(matchers);

@@ -1,4 +1,4 @@
-import { Drink, DrinkOrder } from "../enhanceDrinkOrder";
+import { Drink, DrinkOrder } from "../../enhanceDrinkOrder";
 
 type Currency = "EUR";
 

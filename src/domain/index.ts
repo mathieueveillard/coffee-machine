@@ -1,20 +1,17 @@
-import { error, Maybe, success } from "../util/Maybe";
-import computeChange, { Money, Prices } from "./computeChange";
+import { Maybe } from "../util/Maybe";
+import { Money, Prices } from "./handleMoney/computeChange";
 import enhanceDrinkOrder, { DrinkOrder, EnhancedDrinkOrder } from "./enhanceDrinkOrder";
-
-const buildNotEnoughMoneyErrorMessage = (change: Money): string => {
-  return `Please insert ${-change.value} ${change.currency} more`;
-};
+import handleShortages, { Dependencies } from "./handleShortages";
+import handleMoney from "./handleMoney";
 
 const serveDrink =
+  (dependencies: Dependencies) =>
   (prices: Prices) =>
   (order: DrinkOrder) =>
-  (money: Money): Maybe<EnhancedDrinkOrder> => {
-    const change = computeChange(prices)(order)(money);
-    if (change.value >= 0) {
-      return success(enhanceDrinkOrder(order));
-    }
-    return error(buildNotEnoughMoneyErrorMessage(change));
+  async (money: Money): Promise<Maybe<EnhancedDrinkOrder>> => {
+    return (await handleShortages(dependencies)(order)) //
+      .bind(handleMoney(prices)(money))
+      .bind(enhanceDrinkOrder);
   };
 
 export default serveDrink;

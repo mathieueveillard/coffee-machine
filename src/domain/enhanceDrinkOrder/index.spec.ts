@@ -1,6 +1,7 @@
 // @ts-ignore see https://github.com/jest-community/jest-extended#setup
 import * as matchers from "jest-extended";
 import enhanceDrinkOrder, { DrinkOrder, EnhancedDrinkOrder } from ".";
+import { Success } from "../../util/Maybe";
 expect.extend(matchers);
 
 describe("Test of enhanceDrinkOrder()", function () {
@@ -22,7 +23,7 @@ describe("Test of enhanceDrinkOrder()", function () {
       numberOfSugars: 0,
       stick: "NO_STICK",
     };
-    expect(actual).toEqual(expected);
+    expect((actual as Success<EnhancedDrinkOrder>).result).toEqual(expected);
   });
 
   test("It should forward the drink order with no stick when there is no sugar (Coffee)", function () {
@@ -43,7 +44,7 @@ describe("Test of enhanceDrinkOrder()", function () {
       numberOfSugars: 0,
       stick: "NO_STICK",
     };
-    expect(actual).toEqual(expected);
+    expect((actual as Success<EnhancedDrinkOrder>).result).toEqual(expected);
   });
 
   test("It should forward the drink order with no stick when there is no sugar (Chocolate)", function () {
@@ -64,7 +65,7 @@ describe("Test of enhanceDrinkOrder()", function () {
       numberOfSugars: 0,
       stick: "NO_STICK",
     };
-    expect(actual).toEqual(expected);
+    expect((actual as Success<EnhancedDrinkOrder>).result).toEqual(expected);
   });
 
   test("It should forward the drink order with no stick when there is no sugar (Orange juice)", function () {
@@ -85,7 +86,7 @@ describe("Test of enhanceDrinkOrder()", function () {
       numberOfSugars: 0,
       stick: "NO_STICK",
     };
-    expect(actual).toEqual(expected);
+    expect((actual as Success<EnhancedDrinkOrder>).result).toEqual(expected);
   });
 
   test("It should forward the drink order with a stick when there is one sugar or more", function () {
@@ -106,7 +107,7 @@ describe("Test of enhanceDrinkOrder()", function () {
       numberOfSugars: 1,
       stick: "WITH_STICK",
     };
-    expect(actual).toEqual(expected);
+    expect((actual as Success<EnhancedDrinkOrder>).result).toEqual(expected);
   });
 
   test("It should forward the drink order with a stick when there is one sugar or more", function () {
@@ -127,6 +128,6 @@ describe("Test of enhanceDrinkOrder()", function () {
       numberOfSugars: 2,
       stick: "WITH_STICK",
     };
-    expect(actual).toEqual(expected);
+    expect((actual as Success<EnhancedDrinkOrder>).result).toEqual(expected);
   });
 });

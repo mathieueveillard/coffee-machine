@@ -1,3 +1,5 @@
+import { success, Success } from "../../util/Maybe";
+
 type Cold = "COLD";
 
 type Hot = "HOT" | "EXTRA_HOT";
@@ -52,18 +54,18 @@ type EnhancedSugarDrinkOrder = Enhanced<SugarDrinkOrder, "WITH_STICK">;
 
 export type EnhancedDrinkOrder = EnhancedNoSugarDrinkOrder | EnhancedSugarDrinkOrder;
 
-const enhanceDrinkOrder = (order: DrinkOrder): EnhancedDrinkOrder => {
+const enhanceDrinkOrder = (order: DrinkOrder): Success<EnhancedDrinkOrder> => {
   if (hasSugar(order)) {
-    return {
+    return success({
       ...order,
       stick: "WITH_STICK",
-    };
+    });
   }
   if (hasNoSugar(order)) {
-    return {
+    return success({
       ...order,
       stick: "NO_STICK",
-    };
+    });
   }
 };
 

@@ -27,10 +27,12 @@ const stickMapping: Record<Stick, string> = {
 
 const messagePrefix = "M";
 
-export const ACL = (order: Maybe<EnhancedDrinkOrder>): string => {
+const ACL = (order: Maybe<EnhancedDrinkOrder>): string => {
   if (isSuccess(order)) {
     const { drink, heat, numberOfSugars, stick } = order.result;
     return `${drinkMapping[drink]}${heatMapping[heat]}:${sugarMapping[numberOfSugars]}:${stickMapping[stick]}`;
   }
   return `${messagePrefix}:${order.error}`;
 };
+
+export default ACL;
