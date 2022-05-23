@@ -1,5 +1,5 @@
 import serveDrink from ".";
-import { Error } from "../util/Maybe";
+import { getError } from "../util/Maybe";
 import { Money, Prices, PRICES } from "./handleMoney/computeChange";
 import { DrinkOrder, EnhancedDrinkOrder } from "./enhanceDrinkOrder";
 import { Dependencies } from "./handleShortages";
@@ -18,7 +18,7 @@ describe("Test of serveDrink()", function () {
         currency: "EUR",
       },
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,
@@ -32,12 +32,12 @@ describe("Test of serveDrink()", function () {
     const actual = await serveDrink(dependencies)(prices)(order)(change);
 
     // THEN
-    const expected: EnhancedDrinkOrder = {
+    const expected: EnhancedDrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,
       stick: "NO_STICK",
     };
-    expect((actual as Error<EnhancedDrinkOrder>).error).toEqual("This drink in not available anymore, sorry.");
+    expect(getError(actual)).toEqual("This drink in not available anymore, sorry.");
   });
 });

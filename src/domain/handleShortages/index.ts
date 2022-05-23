@@ -10,7 +10,7 @@ export type Dependencies = {
 
 const handleShortages =
   ({ canServe, askForRefill }: Dependencies) =>
-  async (order: DrinkOrder): Promise<Maybe<DrinkOrder>> => {
+  async <D extends Drink>(order: DrinkOrder<D>): Promise<Maybe<DrinkOrder<D>>> => {
     if (await canServe(order.drink)) {
       return success(order);
     }

@@ -1,6 +1,6 @@
 import handleShortages, { Dependencies } from ".";
 import { DrinkOrder } from "../enhanceDrinkOrder";
-import { Success, Error } from "../../util/Maybe";
+import { getResult, getError } from "../../util/Maybe";
 
 describe("Test of handleShortages()", function () {
   test("It should forward the order if it can be served", async function () {
@@ -9,7 +9,7 @@ describe("Test of handleShortages()", function () {
       canServe: jest.fn().mockResolvedValueOnce(true),
       askForRefill: jest.fn(),
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,
@@ -19,7 +19,7 @@ describe("Test of handleShortages()", function () {
     const actual = await handleShortages(dependencies)(order);
 
     // THEN
-    expect((actual as Success<DrinkOrder>).result).toEqual(order);
+    expect(getResult(actual)).toEqual(order);
   });
 
   test("It should send an email and return an error otherwise", async function () {
@@ -28,7 +28,7 @@ describe("Test of handleShortages()", function () {
       canServe: jest.fn().mockResolvedValueOnce(false),
       askForRefill: jest.fn(),
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,
@@ -38,7 +38,7 @@ describe("Test of handleShortages()", function () {
     const actual = await handleShortages(dependencies)(order);
 
     // THEN
-    expect((actual as Error<DrinkOrder>).error).toEqual("This drink in not available anymore, sorry.");
+    expect(getError(actual)).toEqual("This drink in not available anymore, sorry.");
     expect(dependencies.askForRefill).toHaveBeenCalledWith("TEA");
   });
 });

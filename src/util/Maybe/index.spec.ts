@@ -1,4 +1,4 @@
-import { MappingFunction, Success, Error, success, error } from ".";
+import { MappingFunction, success, error, getResult, getError } from ".";
 
 describe("Maybe", function () {
   test("Input OK, Output OK", function () {
@@ -19,7 +19,7 @@ describe("Maybe", function () {
 
     // THEN
     expect(actual.type).toEqual("SUCCESS");
-    expect((actual as Success<number>).result).toEqual(0.5);
+    expect(getResult(actual)).toEqual(0.5);
   });
 
   test("Input OK, Output KO", function () {
@@ -40,7 +40,7 @@ describe("Maybe", function () {
 
     // THEN
     expect(actual.type).toEqual("ERROR");
-    expect((actual as Error<number>).error).toEqual("Division by 0");
+    expect(getError(actual)).toEqual("Division by 0");
   });
 
   test("Input KO => Output OK", function () {
@@ -61,6 +61,6 @@ describe("Maybe", function () {
 
     // THEN
     expect(actual.type).toEqual("ERROR");
-    expect((actual as Error<number>).error).toEqual("Error");
+    expect(getError(actual)).toEqual("Error");
   });
 });

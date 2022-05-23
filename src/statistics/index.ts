@@ -46,7 +46,9 @@ const earningsStatisticsReducer =
 
 type ServeDrinkFunction = (
   dependencies: Dependencies
-) => (prices: Prices) => (order: DrinkOrder) => (money: Money) => Promise<Maybe<EnhancedDrinkOrder>>;
+) => (
+  prices: Prices
+) => <D extends Drink>(order: DrinkOrder<D>) => (money: Money) => Promise<Maybe<EnhancedDrinkOrder<D>>>;
 
 const withStatistics =
   (state: Statistics) =>

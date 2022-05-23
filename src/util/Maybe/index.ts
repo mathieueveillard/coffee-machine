@@ -26,3 +26,15 @@ export const error = <U>(e: string): Error<U> => ({
 export const isSuccess = <U>(maybe: Maybe<U>): maybe is Success<U> => {
   return maybe.type === "SUCCESS";
 };
+
+/*
+ * Testing facilities
+ */
+
+export const getResult = <U>(maybe: Maybe<U>): U => {
+  return (maybe as Success<U>).result;
+};
+
+export const getError = <U>(maybe: Maybe<U>): string => {
+  return (maybe as Error<U>).error;
+};

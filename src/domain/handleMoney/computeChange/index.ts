@@ -30,7 +30,7 @@ export const PRICES: Prices = {
 
 const computeChange =
   (prices: Prices) =>
-  ({ drink }: DrinkOrder) =>
+  <D extends Drink>({ drink }: DrinkOrder<D>) =>
   (money: Money): Money => {
     const change = money.value - prices[drink].value;
     return {

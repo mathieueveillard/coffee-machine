@@ -1,5 +1,5 @@
 import handleMoney from ".";
-import { Success, Error } from "../../util/Maybe";
+import { getResult, getError } from "../../util/Maybe";
 import { DrinkOrder } from "../enhanceDrinkOrder";
 import { Money, PRICES, Prices } from "./computeChange";
 
@@ -13,7 +13,7 @@ describe("Test of handleMoney", function () {
         currency: "EUR",
       },
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,
@@ -27,7 +27,7 @@ describe("Test of handleMoney", function () {
     const actual = handleMoney(prices)(change)(order);
 
     // THEN
-    expect((actual as Success<DrinkOrder>).result).toEqual(order);
+    expect(getResult(actual)).toEqual(order);
   });
 
   test("It should return an error if there is not enough money", function () {
@@ -39,7 +39,7 @@ describe("Test of handleMoney", function () {
         currency: "EUR",
       },
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,
@@ -54,7 +54,7 @@ describe("Test of handleMoney", function () {
 
     // THEN
     const expected: string = "Please insert 0.2 EUR more";
-    expect((actual as Error<DrinkOrder>).error).toEqual(expected);
+    expect(getError(actual)).toEqual(expected);
   });
 
   test("Edge case", function () {
@@ -66,7 +66,7 @@ describe("Test of handleMoney", function () {
         currency: "EUR",
       },
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,
@@ -80,6 +80,6 @@ describe("Test of handleMoney", function () {
     const actual = handleMoney(prices)(change)(order);
 
     // THEN
-    expect((actual as Success<DrinkOrder>).result).toEqual(order);
+    expect(getResult(actual)).toEqual(order);
   });
 });

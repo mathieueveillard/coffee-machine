@@ -11,7 +11,7 @@ describe("Test of computeChange()", function () {
         currency: "EUR",
       },
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,
@@ -41,7 +41,7 @@ describe("Test of computeChange()", function () {
         currency: "EUR",
       },
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"COFFEE"> = {
       drink: "COFFEE",
       heat: "HOT",
       numberOfSugars: 0,
@@ -71,7 +71,7 @@ describe("Test of computeChange()", function () {
         currency: "EUR",
       },
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"CHOCOLATE"> = {
       drink: "CHOCOLATE",
       heat: "HOT",
       numberOfSugars: 0,
@@ -101,7 +101,7 @@ describe("Test of computeChange()", function () {
         currency: "EUR",
       },
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"ORANGE_JUICE"> = {
       drink: "ORANGE_JUICE",
       heat: "COLD",
       numberOfSugars: 0,

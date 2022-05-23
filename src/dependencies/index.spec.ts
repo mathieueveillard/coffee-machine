@@ -8,7 +8,7 @@ expect.extend(matchers);
 describe("Test of ACL()", function () {
   test("Tea", function () {
     // GIVEN
-    const order: EnhancedDrinkOrder = {
+    const order: EnhancedDrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,
@@ -25,7 +25,7 @@ describe("Test of ACL()", function () {
 
   test("Coffee", function () {
     // GIVEN
-    const order: EnhancedDrinkOrder = {
+    const order: EnhancedDrinkOrder<"COFFEE"> = {
       drink: "COFFEE",
       heat: "HOT",
       numberOfSugars: 0,
@@ -42,7 +42,7 @@ describe("Test of ACL()", function () {
 
   test("Chocolate", function () {
     // GIVEN
-    const order: EnhancedDrinkOrder = {
+    const order: EnhancedDrinkOrder<"CHOCOLATE"> = {
       drink: "CHOCOLATE",
       heat: "HOT",
       numberOfSugars: 0,
@@ -59,7 +59,7 @@ describe("Test of ACL()", function () {
 
   test("Orange juice", function () {
     // GIVEN
-    const order: EnhancedDrinkOrder = {
+    const order: EnhancedDrinkOrder<"ORANGE_JUICE"> = {
       drink: "ORANGE_JUICE",
       heat: "COLD",
       numberOfSugars: 0,
@@ -76,7 +76,7 @@ describe("Test of ACL()", function () {
 
   test("With one sugar (and stick)", function () {
     // GIVEN
-    const order: EnhancedDrinkOrder = {
+    const order: EnhancedDrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 1,
@@ -93,7 +93,7 @@ describe("Test of ACL()", function () {
 
   test("With two sugars (and stick)", function () {
     // GIVEN
-    const order: EnhancedDrinkOrder = {
+    const order: EnhancedDrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 2,
@@ -120,7 +120,7 @@ describe("Test of ACL()", function () {
 
   test("Extra hot tea", function () {
     // GIVEN
-    const order: EnhancedDrinkOrder = {
+    const order: EnhancedDrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "EXTRA_HOT",
       numberOfSugars: 0,

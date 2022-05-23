@@ -30,7 +30,7 @@ describe("Test of withStatistics()", function () {
         currency: "EUR",
       },
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,
@@ -75,7 +75,7 @@ describe("Test of withStatistics()", function () {
         currency: "EUR",
       },
     };
-    const order: DrinkOrder = {
+    const order: DrinkOrder<"TEA"> = {
       drink: "TEA",
       heat: "HOT",
       numberOfSugars: 0,

@@ -1,5 +1,5 @@
 import { Maybe, success, error } from "../../util/Maybe";
-import { DrinkOrder } from "../enhanceDrinkOrder";
+import { Drink, DrinkOrder } from "../enhanceDrinkOrder";
 import computeChange, { Prices, Money } from "./computeChange";
 
 const buildNotEnoughMoneyErrorMessage = (change: Money): string => {
@@ -9,7 +9,7 @@ const buildNotEnoughMoneyErrorMessage = (change: Money): string => {
 const handleMoney =
   (prices: Prices) =>
   (money: Money) =>
-  (order: DrinkOrder): Maybe<DrinkOrder> => {
+  <D extends Drink>(order: DrinkOrder<D>): Maybe<DrinkOrder<D>> => {
     const change = computeChange(prices)(order)(money);
     if (change.value >= 0) {
       return success(order);
