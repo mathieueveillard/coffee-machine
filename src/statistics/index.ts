@@ -1,7 +1,34 @@
-import { Money, Prices } from "../domain/handleMoney/computeChange";
-import { Drink, DrinkOrder, EnhancedDrinkOrder } from "../domain/enhanceDrinkOrder";
-import { Dependencies } from "../domain/handleShortages";
-import { isSuccess, Maybe } from "../util/Maybe";
+import { Success, success } from "../util/Maybe";
+
+type Drink = "TEA" | "COFFEE" | "CHOCOLATE" | "ORANGE_JUICE";
+
+type Currency = "EUR";
+
+type Money = {
+  value: number;
+  currency: Currency;
+};
+
+export type Prices = Record<Drink, Money>;
+
+export const PRICES: Prices = {
+  TEA: {
+    value: 0.4,
+    currency: "EUR",
+  },
+  COFFEE: {
+    value: 0.6,
+    currency: "EUR",
+  },
+  CHOCOLATE: {
+    value: 0.5,
+    currency: "EUR",
+  },
+  ORANGE_JUICE: {
+    value: 0.6,
+    currency: "EUR",
+  },
+};
 
 type DrinkStatistics = Record<Drink, number>;
 
@@ -44,25 +71,20 @@ const earningsStatisticsReducer =
     };
   };
 
-type ServeDrinkFunction = (
-  dependencies: Dependencies
-) => (
-  prices: Prices
-) => <D extends Drink>(order: DrinkOrder<D>) => (money: Money) => Promise<Maybe<EnhancedDrinkOrder<D>>>;
-
-const withStatistics =
-  (state: Statistics) =>
-  (fn: ServeDrinkFunction): ServeDrinkFunction => {
-    return (dependencies) => (prices) => (order) => async (money) => {
-      const result = await fn(dependencies)(prices)(order)(money);
-      if (isSuccess(result)) {
-        const { drink } = order;
-        state.drinks = drinkStatisticsReducer(state.drinks)(drink);
-        state.earnings = earningsStatisticsReducer(prices)(state.earnings)(drink);
-        return result;
-      }
-      return result;
-    };
+export const updateStatistics =
+  (prices: Prices) =>
+  (statistics: Statistics) =>
+  (drink: Drink): Success<Statistics> => {
+    return success({
+      drinks: drinkStatisticsReducer(statistics.drinks)(drink),
+      earnings: earningsStatisticsReducer(prices)(statistics.earnings)(drink),
+    });
   };
 
-export default withStatistics;
+let state: Statistics = INITIAL_STATISTICS;
+
+const readyToUseUpdateStatistics = (drink: Drink): void => {
+  state = updateStatistics(PRICES)(state)(drink).result;
+};
+
+export default readyToUseUpdateStatistics;

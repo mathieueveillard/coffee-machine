@@ -1,8 +1,8 @@
-import serveDrink from ".";
-import { getError } from "../util/Maybe";
 import { Money, Prices, PRICES } from "./handleMoney/computeChange";
 import { DrinkOrder, EnhancedDrinkOrder } from "./enhanceDrinkOrder";
 import { Dependencies } from "./handleShortages";
+import { getError } from "../util/Maybe";
+import { serveDrink } from ".";
 
 describe("Test of serveDrink()", function () {
   test("It should handle shortages as well", async function () {

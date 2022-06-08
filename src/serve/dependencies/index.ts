@@ -1,5 +1,5 @@
-import { Drink, NumberOfSugars, Stick, EnhancedDrinkOrder, Heat } from "../domain/enhanceDrinkOrder";
-import { isSuccess, Maybe } from "../util/Maybe";
+import { Drink, NumberOfSugars, Stick, EnhancedDrinkOrder, Heat } from "../enhanceDrinkOrder";
+import { isSuccess, Maybe } from "../../util/Maybe";
 
 const drinkMapping: Record<Drink, string> = {
   TEA: "T",
