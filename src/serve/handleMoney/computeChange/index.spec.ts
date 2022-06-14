@@ -7,8 +7,8 @@ describe("Test of computeChange()", function () {
     const prices: Prices = {
       ...PRICES,
       TEA: {
-        value: 0.4,
-        currency: "EUR",
+        value: 40,
+        currency: "EUR_CENTS",
       },
     };
     const order: DrinkOrder<"TEA"> = {
@@ -17,8 +17,8 @@ describe("Test of computeChange()", function () {
       numberOfSugars: 0,
     };
     const money: Money = {
-      value: 1,
-      currency: "EUR",
+      value: 100,
+      currency: "EUR_CENTS",
     };
 
     // WHEN
@@ -26,8 +26,8 @@ describe("Test of computeChange()", function () {
 
     // THEN
     const expected: Money = {
-      value: 0.6,
-      currency: "EUR",
+      value: 60,
+      currency: "EUR_CENTS",
     };
     expect(actual).toEqual(expected);
   });
@@ -37,8 +37,8 @@ describe("Test of computeChange()", function () {
     const prices: Prices = {
       ...PRICES,
       COFFEE: {
-        value: 0.6,
-        currency: "EUR",
+        value: 60,
+        currency: "EUR_CENTS",
       },
     };
     const order: DrinkOrder<"COFFEE"> = {
@@ -47,8 +47,8 @@ describe("Test of computeChange()", function () {
       numberOfSugars: 0,
     };
     const money: Money = {
-      value: 1,
-      currency: "EUR",
+      value: 100,
+      currency: "EUR_CENTS",
     };
 
     // WHEN
@@ -56,8 +56,8 @@ describe("Test of computeChange()", function () {
 
     // THEN
     const expected: Money = {
-      value: 0.4,
-      currency: "EUR",
+      value: 40,
+      currency: "EUR_CENTS",
     };
     expect(actual).toEqual(expected);
   });
@@ -67,8 +67,8 @@ describe("Test of computeChange()", function () {
     const prices: Prices = {
       ...PRICES,
       CHOCOLATE: {
-        value: 0.5,
-        currency: "EUR",
+        value: 50,
+        currency: "EUR_CENTS",
       },
     };
     const order: DrinkOrder<"CHOCOLATE"> = {
@@ -77,8 +77,8 @@ describe("Test of computeChange()", function () {
       numberOfSugars: 0,
     };
     const money: Money = {
-      value: 1,
-      currency: "EUR",
+      value: 100,
+      currency: "EUR_CENTS",
     };
 
     // WHEN
@@ -86,8 +86,8 @@ describe("Test of computeChange()", function () {
 
     // THEN
     const expected: Money = {
-      value: 0.5,
-      currency: "EUR",
+      value: 50,
+      currency: "EUR_CENTS",
     };
     expect(actual).toEqual(expected);
   });
@@ -97,8 +97,8 @@ describe("Test of computeChange()", function () {
     const prices: Prices = {
       ...PRICES,
       ORANGE_JUICE: {
-        value: 0.6,
-        currency: "EUR",
+        value: 60,
+        currency: "EUR_CENTS",
       },
     };
     const order: DrinkOrder<"ORANGE_JUICE"> = {
@@ -107,8 +107,8 @@ describe("Test of computeChange()", function () {
       numberOfSugars: 0,
     };
     const money: Money = {
-      value: 1,
-      currency: "EUR",
+      value: 100,
+      currency: "EUR_CENTS",
     };
 
     // WHEN
@@ -116,8 +116,8 @@ describe("Test of computeChange()", function () {
 
     // THEN
     const expected: Money = {
-      value: 0.4,
-      currency: "EUR",
+      value: 40,
+      currency: "EUR_CENTS",
     };
     expect(actual).toEqual(expected);
   });

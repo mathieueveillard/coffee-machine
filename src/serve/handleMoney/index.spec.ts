@@ -9,8 +9,8 @@ describe("Test of handleMoney", function () {
     const prices: Prices = {
       ...PRICES,
       TEA: {
-        value: 0.4,
-        currency: "EUR",
+        value: 40,
+        currency: "EUR_CENTS",
       },
     };
     const order: DrinkOrder<"TEA"> = {
@@ -19,8 +19,8 @@ describe("Test of handleMoney", function () {
       numberOfSugars: 0,
     };
     const change: Money = {
-      value: 1,
-      currency: "EUR",
+      value: 100,
+      currency: "EUR_CENTS",
     };
 
     // WHEN
@@ -35,8 +35,8 @@ describe("Test of handleMoney", function () {
     const prices: Prices = {
       ...PRICES,
       TEA: {
-        value: 0.4,
-        currency: "EUR",
+        value: 40,
+        currency: "EUR_CENTS",
       },
     };
     const order: DrinkOrder<"TEA"> = {
@@ -45,15 +45,15 @@ describe("Test of handleMoney", function () {
       numberOfSugars: 0,
     };
     const change: Money = {
-      value: 0.2,
-      currency: "EUR",
+      value: 20,
+      currency: "EUR_CENTS",
     };
 
     // WHEN
     const actual = handleMoney(prices)(change)(order);
 
     // THEN
-    const expected: string = "Please insert 0.2 EUR more";
+    const expected: string = "Please insert 20 EUR_CENTS more";
     expect(getError(actual)).toEqual(expected);
   });
 
@@ -62,8 +62,8 @@ describe("Test of handleMoney", function () {
     const prices: Prices = {
       ...PRICES,
       TEA: {
-        value: 0.4,
-        currency: "EUR",
+        value: 40,
+        currency: "EUR_CENTS",
       },
     };
     const order: DrinkOrder<"TEA"> = {
@@ -72,8 +72,8 @@ describe("Test of handleMoney", function () {
       numberOfSugars: 0,
     };
     const change: Money = {
-      value: 0.4,
-      currency: "EUR",
+      value: 40,
+      currency: "EUR_CENTS",
     };
 
     // WHEN

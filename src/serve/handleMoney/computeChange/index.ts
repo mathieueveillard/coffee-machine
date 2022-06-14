@@ -1,6 +1,6 @@
 import { Drink, DrinkOrder } from "../../enhanceDrinkOrder";
 
-type Currency = "EUR";
+type Currency = "EUR_CENTS";
 
 export type Money = {
   value: number;
@@ -11,20 +11,20 @@ export type Prices = Record<Drink, Money>;
 
 export const PRICES: Prices = {
   TEA: {
-    value: 0.4,
-    currency: "EUR",
+    value: 40,
+    currency: "EUR_CENTS",
   },
   COFFEE: {
-    value: 0.6,
-    currency: "EUR",
+    value: 60,
+    currency: "EUR_CENTS",
   },
   CHOCOLATE: {
-    value: 0.5,
-    currency: "EUR",
+    value: 50,
+    currency: "EUR_CENTS",
   },
   ORANGE_JUICE: {
-    value: 0.6,
-    currency: "EUR",
+    value: 60,
+    currency: "EUR_CENTS",
   },
 };
 
@@ -35,7 +35,7 @@ const computeChange =
     const change = money.value - prices[drink].value;
     return {
       value: change,
-      currency: "EUR",
+      currency: "EUR_CENTS",
     };
   };
 

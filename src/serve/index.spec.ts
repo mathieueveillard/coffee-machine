@@ -14,8 +14,8 @@ describe("Test of serveDrink()", function () {
     const prices: Prices = {
       ...PRICES,
       TEA: {
-        value: 0.4,
-        currency: "EUR",
+        value: 40,
+        currency: "EUR_CENTS",
       },
     };
     const order: DrinkOrder<"TEA"> = {
@@ -25,7 +25,7 @@ describe("Test of serveDrink()", function () {
     };
     const change: Money = {
       value: 1,
-      currency: "EUR",
+      currency: "EUR_CENTS",
     };
 
     // WHEN

@@ -7,8 +7,8 @@ describe("Test of updateStatistics()", function () {
     const prices: Prices = {
       ...PRICES,
       TEA: {
-        value: 0.4,
-        currency: "EUR",
+        value: 40,
+        currency: "EUR_CENTS",
       },
     };
 
@@ -24,8 +24,8 @@ describe("Test of updateStatistics()", function () {
         ORANGE_JUICE: 0,
       },
       earnings: {
-        value: 0.4,
-        currency: "EUR",
+        value: 40,
+        currency: "EUR_CENTS",
       },
     };
     expect(actual.result).toEqual(expected);

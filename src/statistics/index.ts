@@ -2,7 +2,7 @@ import { Success, success } from "../util/Maybe";
 
 type Drink = "TEA" | "COFFEE" | "CHOCOLATE" | "ORANGE_JUICE";
 
-type Currency = "EUR";
+type Currency = "EUR_CENTS";
 
 type Money = {
   value: number;
@@ -13,20 +13,20 @@ export type Prices = Record<Drink, Money>;
 
 export const PRICES: Prices = {
   TEA: {
-    value: 0.4,
-    currency: "EUR",
+    value: 40,
+    currency: "EUR_CENTS",
   },
   COFFEE: {
-    value: 0.6,
-    currency: "EUR",
+    value: 60,
+    currency: "EUR_CENTS",
   },
   CHOCOLATE: {
-    value: 0.5,
-    currency: "EUR",
+    value: 50,
+    currency: "EUR_CENTS",
   },
   ORANGE_JUICE: {
-    value: 0.6,
-    currency: "EUR",
+    value: 60,
+    currency: "EUR_CENTS",
   },
 };
 
@@ -48,7 +48,7 @@ export const INITIAL_STATISTICS: Statistics = {
   },
   earnings: {
     value: 0,
-    currency: "EUR",
+    currency: "EUR_CENTS",
   },
 };
 
