@@ -32,11 +32,11 @@ export const PRICES: Prices = {
 
 type DrinkStatistics = Record<Drink, number>;
 
-type EarningsStatistics = Money;
+type Turnover = Money;
 
 export type Statistics = {
   drinks: DrinkStatistics;
-  earnings: EarningsStatistics;
+  turnover: Turnover;
 };
 
 export const INITIAL_STATISTICS: Statistics = {
@@ -46,7 +46,7 @@ export const INITIAL_STATISTICS: Statistics = {
     CHOCOLATE: 0,
     ORANGE_JUICE: 0,
   },
-  earnings: {
+  turnover: {
     value: 0,
     currency: "EUR_CENTS",
   },
@@ -61,10 +61,10 @@ const drinkStatisticsReducer =
     };
   };
 
-const earningsStatisticsReducer =
+const turnoverReducer =
   (prices: Prices) =>
-  (state: EarningsStatistics) =>
-  (drink: Drink): EarningsStatistics => {
+  (state: Turnover) =>
+  (drink: Drink): Turnover => {
     return {
       ...state,
       value: state.value + prices[drink].value,
@@ -77,7 +77,7 @@ export const updateStatistics =
   (drink: Drink): Success<Statistics> => {
     return success({
       drinks: drinkStatisticsReducer(statistics.drinks)(drink),
-      earnings: earningsStatisticsReducer(prices)(statistics.earnings)(drink),
+      turnover: turnoverReducer(prices)(statistics.turnover)(drink),
     });
   };
 

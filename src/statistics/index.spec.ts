@@ -23,7 +23,7 @@ describe("Test of updateStatistics()", function () {
         CHOCOLATE: 0,
         ORANGE_JUICE: 0,
       },
-      earnings: {
+      turnover: {
         value: 40,
         currency: "EUR_CENTS",
       },
