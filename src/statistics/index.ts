@@ -53,8 +53,8 @@ export const INITIAL_STATISTICS: Statistics = {
 };
 
 const drinkStatisticsReducer =
-  (state: DrinkStatistics) =>
-  (drink: Drink): DrinkStatistics => {
+  (drink: Drink) =>
+  (state: DrinkStatistics): DrinkStatistics => {
     return {
       ...state,
       [drink]: state[drink] + 1,
@@ -63,8 +63,8 @@ const drinkStatisticsReducer =
 
 const turnoverReducer =
   (prices: Prices) =>
-  (state: Turnover) =>
-  (drink: Drink): Turnover => {
+  (drink: Drink) =>
+  (state: Turnover): Turnover => {
     return {
       ...state,
       value: state.value + prices[drink].value,
@@ -76,8 +76,8 @@ export const updateStatistics =
   (statistics: Statistics) =>
   (drink: Drink): Success<Statistics> => {
     return success({
-      drinks: drinkStatisticsReducer(statistics.drinks)(drink),
-      turnover: turnoverReducer(prices)(statistics.turnover)(drink),
+      drinks: drinkStatisticsReducer(drink)(statistics.drinks),
+      turnover: turnoverReducer(prices)(drink)(statistics.turnover),
     });
   };
 
